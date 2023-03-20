@@ -1,0 +1,9 @@
+schema: 'http://localhost:8000/graphql'
+documents:
+  - 'src/**/*.tsx'
+ignoreNoDocuments: true
+generates:
+  ./src/graphql/__generated__/:
+    preset: 'client'
+    presetConfig:
+      gqlTagName: 'gql'
