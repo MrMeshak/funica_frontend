@@ -12,15 +12,15 @@ export default function Logo ({width}: ILogoProps) {
       <path d="M0 34.7077H9.67164C16.0023 34.7077 21.1343 39.8397 21.1343 46.1704V48H11.4627C5.13202 48 0 42.868 0 36.5373V34.7077Z" fill="url(#paint2_linear_1427_24722)"/>
       <defs>
       <linearGradient id="paint0_linear_1427_24722" x1="48" y1="48" x2="-9.11569" y2="31.4398" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#101010"/>
+      <stop stopColor="#101010"/>
       <stop offset="1" stopColor="#313130"/>
       </linearGradient>
       <linearGradient id="paint1_linear_1427_24722" x1="48" y1="48" x2="-9.11569" y2="31.4398" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#101010"/>
+      <stop stopColor="#101010"/>
       <stop offset="1" stopColor="#313130"/>
       </linearGradient>
       <linearGradient id="paint2_linear_1427_24722" x1="48" y1="48" x2="-9.11569" y2="31.4398" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#101010"/>
+      <stop stopColor="#101010"/>
       <stop offset="1" stopColor="#313130"/>
       </linearGradient>
       </defs>

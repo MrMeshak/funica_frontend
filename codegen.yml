@@ -1,6 +1,7 @@
+overwrite: true
 schema: 'http://localhost:8000/graphql'
 documents:
-  - 'src/**/*.tsx'
+  - './src/**/*.tsx'
 ignoreNoDocuments: true
 generates:
   ./src/graphql/__generated__/:

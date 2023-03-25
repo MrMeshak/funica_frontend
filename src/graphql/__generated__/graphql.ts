@@ -38,6 +38,12 @@ export type EmailField = {
   placeholder?: Maybe<Scalars['String']>;
 };
 
+export type FirstnameField = {
+  __typename?: 'FirstnameField';
+  label?: Maybe<Scalars['String']>;
+  placeholder?: Maybe<Scalars['String']>;
+};
+
 export type ForgotPasswordLink = {
   __typename?: 'ForgotPasswordLink';
   label?: Maybe<Scalars['String']>;
@@ -61,6 +67,12 @@ export type InvalidInputError = BaseError & {
   message: Scalars['String'];
 };
 
+export type LastnameField = {
+  __typename?: 'LastnameField';
+  label?: Maybe<Scalars['String']>;
+  placeholder?: Maybe<Scalars['String']>;
+};
+
 export type LoginForm = {
   __typename?: 'LoginForm';
   email: EmailField;
@@ -70,7 +82,7 @@ export type LoginForm = {
 
 export type LoginHeader = {
   __typename?: 'LoginHeader';
-  subtitle: Scalars['String'];
+  subtitle?: Maybe<Scalars['String']>;
   title: Scalars['String'];
 };
 
@@ -79,8 +91,15 @@ export type LoginInput = {
   password: Scalars['String'];
 };
 
+export type LoginLink = {
+  __typename?: 'LoginLink';
+  label?: Maybe<Scalars['String']>;
+  link?: Maybe<Scalars['String']>;
+  linkLabel?: Maybe<Scalars['String']>;
+};
+
 export type LoginPageUi = {
-  __typename?: 'LoginPageUI';
+  __typename?: 'LoginPageUi';
   forgotPasswordLink: ForgotPasswordLink;
   form: LoginForm;
   header: LoginHeader;
@@ -178,7 +197,8 @@ export type Query = {
   __typename?: 'Query';
   hello: Scalars['String'];
   login?: Maybe<LoginResult>;
-  loginPageUI: LoginPageUi;
+  loginPageUi: LoginPageUi;
+  signupPageUi: SignupPageUi;
 };
 
 
@@ -199,6 +219,21 @@ export enum ShippingType {
   Standard = 'STANDARD'
 }
 
+export type SignupForm = {
+  __typename?: 'SignupForm';
+  email: EmailField;
+  firstname: FirstnameField;
+  lastname: LastnameField;
+  password: PasswordField;
+  submit: SubmitButton;
+};
+
+export type SignupHeader = {
+  __typename?: 'SignupHeader';
+  subtitle: Scalars['String'];
+  title: Scalars['String'];
+};
+
 export type SignupInput = {
   email: Scalars['String'];
   firstname: Scalars['String'];
@@ -211,6 +246,13 @@ export type SignupLink = {
   label?: Maybe<Scalars['String']>;
   link?: Maybe<Scalars['String']>;
   linkLabel?: Maybe<Scalars['String']>;
+};
+
+export type SignupPageUi = {
+  __typename?: 'SignupPageUi';
+  form: SignupForm;
+  header: SignupHeader;
+  loginLink: LoginLink;
 };
 
 export type SignupResult = InvalidInputError | User;
@@ -237,7 +279,13 @@ export type User = {
 export type LoginPageUiQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type LoginPageUiQuery = { __typename?: 'Query', loginPageUI: { __typename?: 'LoginPageUI', header: { __typename?: 'LoginHeader', title: string }, form: { __typename?: 'LoginForm', email: { __typename?: 'EmailField', label?: string | null, placeholder?: string | null }, password: { __typename?: 'PasswordField', label?: string | null, placeholder?: string | null }, submit: { __typename?: 'SubmitButton', label?: string | null } }, signupLink: { __typename?: 'SignupLink', label?: string | null, linkLabel?: string | null, link?: string | null }, forgotPasswordLink: { __typename?: 'ForgotPasswordLink', label?: string | null, link?: string | null } } };
+export type LoginPageUiQuery = { __typename?: 'Query', loginPageUi: { __typename?: 'LoginPageUi', header: { __typename?: 'LoginHeader', title: string }, form: { __typename?: 'LoginForm', email: { __typename?: 'EmailField', label?: string | null, placeholder?: string | null }, password: { __typename?: 'PasswordField', label?: string | null, placeholder?: string | null }, submit: { __typename?: 'SubmitButton', label?: string | null } }, signupLink: { __typename?: 'SignupLink', label?: string | null, linkLabel?: string | null, link?: string | null }, forgotPasswordLink: { __typename?: 'ForgotPasswordLink', label?: string | null, link?: string | null } } };
+
+export type SignupPageUiQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export const LoginPageUiDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"loginPageUI"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"loginPageUI"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"header"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}}]}},{"kind":"Field","name":{"kind":"Name","value":"form"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"email"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"placeholder"}}]}},{"kind":"Field","name":{"kind":"Name","value":"password"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"placeholder"}}]}},{"kind":"Field","name":{"kind":"Name","value":"submit"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"signupLink"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"linkLabel"}},{"kind":"Field","name":{"kind":"Name","value":"link"}}]}},{"kind":"Field","name":{"kind":"Name","value":"forgotPasswordLink"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"link"}}]}}]}}]}}]} as unknown as DocumentNode<LoginPageUiQuery, LoginPageUiQueryVariables>;
+export type SignupPageUiQuery = { __typename?: 'Query', signupPageUi: { __typename?: 'SignupPageUi', header: { __typename?: 'SignupHeader', title: string }, form: { __typename?: 'SignupForm', email: { __typename?: 'EmailField', label?: string | null, placeholder?: string | null }, password: { __typename?: 'PasswordField', label?: string | null, placeholder?: string | null }, firstname: { __typename?: 'FirstnameField', label?: string | null, placeholder?: string | null }, lastname: { __typename?: 'LastnameField', label?: string | null, placeholder?: string | null }, submit: { __typename?: 'SubmitButton', label?: string | null } }, loginLink: { __typename?: 'LoginLink', label?: string | null, linkLabel?: string | null, link?: string | null } } };
+
+
+export const LoginPageUiDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"loginPageUi"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"loginPageUi"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"header"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}}]}},{"kind":"Field","name":{"kind":"Name","value":"form"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"email"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"placeholder"}}]}},{"kind":"Field","name":{"kind":"Name","value":"password"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"placeholder"}}]}},{"kind":"Field","name":{"kind":"Name","value":"submit"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"signupLink"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"linkLabel"}},{"kind":"Field","name":{"kind":"Name","value":"link"}}]}},{"kind":"Field","name":{"kind":"Name","value":"forgotPasswordLink"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"link"}}]}}]}}]}}]} as unknown as DocumentNode<LoginPageUiQuery, LoginPageUiQueryVariables>;
+export const SignupPageUiDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"signupPageUI"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"signupPageUi"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"header"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}}]}},{"kind":"Field","name":{"kind":"Name","value":"form"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"email"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"placeholder"}}]}},{"kind":"Field","name":{"kind":"Name","value":"password"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"placeholder"}}]}},{"kind":"Field","name":{"kind":"Name","value":"firstname"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"placeholder"}}]}},{"kind":"Field","name":{"kind":"Name","value":"lastname"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"placeholder"}}]}},{"kind":"Field","name":{"kind":"Name","value":"submit"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"loginLink"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"linkLabel"}},{"kind":"Field","name":{"kind":"Name","value":"link"}}]}}]}}]}}]} as unknown as DocumentNode<SignupPageUiQuery, SignupPageUiQueryVariables>;
