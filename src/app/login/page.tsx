@@ -1,8 +1,9 @@
-import { generateApolloClient } from '@/apollo';
+import { getApolloClient } from '@/apollo';
 import LoginForm from '@/components/loginSignup/loginForm';
 import LoginHeader from '@/components/loginSignup/loginHeader';
 import { LoginPageUiQuery } from '@/graphql/__generated__/graphql';
 import { gql } from '../../graphql/__generated__/gql';
+import { MessageIcon } from '@/components/utils/icons/iconly';
 
 const loginPageUiQuery = gql(/* GraphQL */ `
   query loginPageUi {
@@ -37,7 +38,7 @@ const loginPageUiQuery = gql(/* GraphQL */ `
 `);
 
 const getLoginPageData = async () => {
-  const client = generateApolloClient();
+  const client = getApolloClient();
   const UiQueryResult = await client.query<LoginPageUiQuery>({ query: loginPageUiQuery });
   return { UiQueryResult };
 };

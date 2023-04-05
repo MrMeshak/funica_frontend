@@ -2,7 +2,7 @@ import { ApolloClient, InMemoryCache, HttpLink } from '@apollo/client';
 
 let client: ApolloClient<any> | null = null;
 
-export const generateApolloClient = () => {
+export const getApolloClient = () => {
   if (!client || typeof window === 'undefined') {
     client = new ApolloClient({
       link: new HttpLink({

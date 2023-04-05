@@ -1,7 +1,7 @@
 import SignupHeader from '@/components/loginSignup/signupHeader';
 import SignupForm from '@/components/loginSignup/signupForm';
 import { gql } from '../../graphql/__generated__/gql';
-import { generateApolloClient } from '@/apollo';
+import { getApolloClient } from '@/apollo';
 import { SignupPageUiQuery } from '@/graphql/__generated__/graphql';
 
 export interface ISignupPageProps {}
@@ -43,7 +43,7 @@ const signupPageUiQuery = gql(/* GraphQL */ `
 `);
 
 const getSignupPageData = async () => {
-  const client = generateApolloClient();
+  const client = getApolloClient();
   const UiQueryResult = await client.query<SignupPageUiQuery>({ query: signupPageUiQuery });
   return { UiQueryResult };
 };
@@ -64,6 +64,7 @@ export default async function signupPage(props: ISignupPageProps) {
   return (
     <>
       <SignupHeader UiData={UiData} />
+      <SignupForm UiData={UiData} />
     </>
   );
 }

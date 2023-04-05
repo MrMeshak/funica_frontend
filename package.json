@@ -14,6 +14,7 @@
     "@apollo/client": "^3.7.10",
     "@fortawesome/fontawesome-svg-core": "^6.3.0",
     "@fortawesome/free-brands-svg-icons": "^6.3.0",
+    "@fortawesome/free-regular-svg-icons": "^6.4.0",
     "@fortawesome/free-solid-svg-icons": "^6.3.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@types/node": "18.15.0",
@@ -25,12 +26,15 @@
     "graphql": "^16.6.0",
     "next": "13.2.4",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "validator": "^13.9.0",
+    "zustand": "^4.3.7"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^3.2.2",
     "@graphql-codegen/client-preset": "^2.1.1",
     "@graphql-codegen/typescript-react-apollo": "^3.3.7",
+    "@types/validator": "^13.7.14",
     "autoprefixer": "^10.4.14",
     "graphql-codegen-apollo-next-ssr": "^1.7.4",
     "install": "^0.13.0",
