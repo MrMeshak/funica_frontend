@@ -38,7 +38,7 @@ const loginQuery = gql(/* GraphQL */ `
 `);
 
 export interface ILoginFormProps {
-  UiData: LoginPageUiQuery['loginPageUi'];
+  uiData: LoginPageUiQuery['loginPageUi'];
 }
 
 interface ILoginFormValues {
@@ -46,10 +46,10 @@ interface ILoginFormValues {
   password: string;
 }
 
-export default function LoginForm({ UiData }: ILoginFormProps) {
-  const formData = UiData.form;
-  const signupLinkData = UiData.signupLink;
-  const forgotPasswordLinkData = UiData.forgotPasswordLink;
+export default function LoginForm({ uiData }: ILoginFormProps) {
+  const formData = uiData.form;
+  const signupLinkData = uiData.signupLink;
+  const forgotPasswordLinkData = uiData.forgotPasswordLink;
   const { setUser, user } = useUserStore();
 
   const [alertProps, setAlertProps] = useState<IAlertCardProps | null>(null);

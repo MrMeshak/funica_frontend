@@ -5,11 +5,11 @@ import { LoginPageUiQuery } from '@/graphql/__generated__/graphql';
 import Logo from '../utils/logo/logo';
 
 export interface ILoginHeaderProps {
-  UiData: LoginPageUiQuery['loginPageUi'];
+  uiData: LoginPageUiQuery['loginPageUi'];
 }
 
-export default function LoginHeader({ UiData }: ILoginHeaderProps) {
-  const headerData = UiData.header;
+export default function LoginHeader({ uiData }: ILoginHeaderProps) {
+  const headerData = uiData.header;
 
   return (
     <div>

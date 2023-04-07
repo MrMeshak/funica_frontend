@@ -2,8 +2,7 @@ import { getApolloClient } from '@/apollo';
 import LoginForm from '@/components/loginSignup/loginForm';
 import LoginHeader from '@/components/loginSignup/loginHeader';
 import { LoginPageUiQuery } from '@/graphql/__generated__/graphql';
-import { gql } from '../../graphql/__generated__/gql';
-import { MessageIcon } from '@/components/utils/icons/iconly';
+import { gql } from '@/graphql/__generated__/gql';
 
 const loginPageUiQuery = gql(/* GraphQL */ `
   query loginPageUi {
@@ -39,28 +38,28 @@ const loginPageUiQuery = gql(/* GraphQL */ `
 
 const getLoginPageData = async () => {
   const client = getApolloClient();
-  const UiQueryResult = await client.query<LoginPageUiQuery>({ query: loginPageUiQuery });
-  return { UiQueryResult };
+  const uiQueryResult = await client.query<LoginPageUiQuery>({ query: loginPageUiQuery });
+  return { uiQueryResult };
 };
 
 interface ILoginPageProps {}
 
 export default async function loginPage(props: ILoginPageProps) {
-  const { UiQueryResult } = await getLoginPageData();
-  const UiData = UiQueryResult.data.loginPageUi;
+  const { uiQueryResult } = await getLoginPageData();
+  const uiData = uiQueryResult.data.loginPageUi;
 
-  if (UiQueryResult.loading) {
+  if (uiQueryResult.loading) {
     return <p>Loading...</p>;
   }
 
-  if (UiQueryResult.error) {
-    return <p>Error: {UiQueryResult.error.message}</p>;
+  if (uiQueryResult.error) {
+    return <p>Error: {uiQueryResult.error.message}</p>;
   }
 
   return (
     <>
-      <LoginHeader UiData={UiData} />
-      <LoginForm UiData={UiData} />
+      <LoginHeader uiData={uiData} />
+      <LoginForm uiData={uiData} />
     </>
   );
 }
