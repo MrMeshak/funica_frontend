@@ -3,51 +3,49 @@ import Gallery from '@/components/product/gallery';
 import { gql } from '@/graphql/__generated__/gql';
 import { ProductPageUiQuery } from '@/graphql/__generated__/graphql';
 
-interface IProductPageProps {
-  params: { productId: string };
-}
-
 const productPageUiQuery = gql(/* GraphQL */ `
   query productPageUi($input: ProductPageUiInput!) {
     productPageUi(input: $input) {
       ... on ProductPageUi {
         __typename
+
         productGallery {
-          gallery {
-            variationId
-            images
+          images {
+            id
+            alt
+            url
+            height
+            width
           }
         }
+
         productHeader {
           title
-          subtitle
+          variationName
+          size
+          price
         }
+
         productInfo {
-          productDescription {
-            label
-            description
+          description
+          variations {
+            id
+            variationName
+            color
+            colorHex
+            size
           }
         }
+
         productForm {
-          productVariationField {
-            label
-            variations {
-              variationId
-              color
-              colorHex
-            }
-          }
-          productQuantityField {
+          quantityField {
             label
             min
             max
           }
-          productAddToCartBtn {
+          submit {
             label
           }
-        }
-        productPrice {
-          price
         }
       }
       ... on NotFoundError {
@@ -58,15 +56,19 @@ const productPageUiQuery = gql(/* GraphQL */ `
   }
 `);
 
-const getProductPageData = async (productId: string) => {
+interface IProductPageProps {
+  params: { productVariationId: string };
+}
+
+const getProductPageData = async (productVariationId: string) => {
   const client = getApolloClient();
-  const uiQueryResult = await client.query<ProductPageUiQuery>({ query: productPageUiQuery, variables: { input: { productId } } });
+  const uiQueryResult = await client.query<ProductPageUiQuery>({ query: productPageUiQuery, variables: { input: { productVariationId } } });
   return { uiQueryResult };
 };
 
 export default async function ProductPage({ params }: IProductPageProps) {
-  const productId = params.productId;
-  const { uiQueryResult } = await getProductPageData(productId);
+  const { productVariationId } = params;
+  const { uiQueryResult } = await getProductPageData(productVariationId);
 
   if (uiQueryResult.error) {
     return <p>Error: {uiQueryResult.error.message}</p>;
@@ -81,8 +83,7 @@ export default async function ProductPage({ params }: IProductPageProps) {
   return (
     <div>
       <h1>Product Page</h1>
-      <h2>{uiData.productHeader.title}</h2>
-      <Gallery uiData={uiData} />
+      <p>{uiData.productHeader?.title}</p>
     </div>
   );
 }

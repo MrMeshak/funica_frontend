@@ -50,6 +50,15 @@ export type ForgotPasswordLink = {
   link?: Maybe<Scalars['String']>;
 };
 
+export type Images = {
+  __typename?: 'Images';
+  alt: Scalars['String'];
+  height: Scalars['Int'];
+  id: Scalars['ID'];
+  url: Scalars['String'];
+  width: Scalars['Int'];
+};
+
 export type InvalidCredentialsError = BaseError & {
   __typename?: 'InvalidCredentialsError';
   message: Scalars['String'];
@@ -182,115 +191,86 @@ export type Product = {
   id: Scalars['ID'];
   isFavorited?: Maybe<Scalars['Boolean']>;
   name: Scalars['String'];
-  price: Scalars['Int'];
   productType: Scalars['String'];
   rating?: Maybe<Scalars['Float']>;
   reviews?: Maybe<Array<Maybe<Review>>>;
   variations: Array<ProductVariation>;
 };
 
-export type ProductAddToCartBtn = {
-  __typename?: 'ProductAddToCartBtn';
-  label: Scalars['String'];
-};
-
-export type ProductDescription = {
-  __typename?: 'ProductDescription';
-  description: Scalars['String'];
-  label: Scalars['String'];
+export type ProductData = {
+  __typename?: 'ProductData';
+  product: ProductSummary;
+  productVariation: ProductVariation;
 };
 
 export type ProductForm = {
   __typename?: 'ProductForm';
-  productAddToCartBtn: SubmitButton;
-  productQuantityField: ProductQuantityField;
-  productVariationField: ProductVariationField;
+  quantityField: QuantityField;
+  submit: SubmitButton;
 };
 
 export type ProductGallery = {
   __typename?: 'ProductGallery';
-  gallery: Array<Maybe<ProductGalleryCollection>>;
-};
-
-export type ProductGalleryCollection = {
-  __typename?: 'ProductGalleryCollection';
-  images: Array<Maybe<Scalars['String']>>;
-  variationId: Scalars['ID'];
+  images: Array<Images>;
 };
 
 export type ProductHeader = {
   __typename?: 'ProductHeader';
   isLiked?: Maybe<Scalars['Boolean']>;
-  productStats?: Maybe<ProductStats>;
-  subtitle: Scalars['String'];
+  price: Scalars['Int'];
+  rating: Scalars['Float'];
+  reviewCount?: Maybe<Scalars['Int']>;
+  size: Scalars['String'];
   title: Scalars['String'];
+  variationName: Scalars['String'];
 };
 
 export type ProductInfo = {
   __typename?: 'ProductInfo';
-  productDescription?: Maybe<ProductDescription>;
-};
-
-export type ProductPageData = {
-  __typename?: 'ProductPageData';
-  product: Product;
+  description: Scalars['String'];
+  variations: Array<ProductVariationSummary>;
 };
 
 export type ProductPageUi = {
   __typename?: 'ProductPageUi';
-  productForm: ProductForm;
-  productGallery: ProductGallery;
-  productHeader: ProductHeader;
-  productInfo: ProductInfo;
-  productPageData: ProductPageData;
-  productPrice: ProductPrice;
+  productData: ProductData;
+  productForm?: Maybe<ProductForm>;
+  productGallery?: Maybe<ProductGallery>;
+  productHeader?: Maybe<ProductHeader>;
+  productInfo?: Maybe<ProductInfo>;
 };
 
 export type ProductPageUiInput = {
-  productId: Scalars['ID'];
+  productVariationId: Scalars['ID'];
 };
 
 export type ProductPageUiResult = NotFoundError | ProductPageUi;
-
-export type ProductPrice = {
-  __typename?: 'ProductPrice';
-  label: Scalars['String'];
-  price: Scalars['Int'];
-};
-
-export type ProductQuantityField = {
-  __typename?: 'ProductQuantityField';
-  label: Scalars['String'];
-  max?: Maybe<Scalars['Int']>;
-  min?: Maybe<Scalars['Int']>;
-};
-
-export type ProductStats = {
-  __typename?: 'ProductStats';
-  rating?: Maybe<Scalars['Float']>;
-  reviewCount?: Maybe<Scalars['Int']>;
-};
 
 export type ProductVariation = {
   __typename?: 'ProductVariation';
   color: Scalars['String'];
   colorHex: Scalars['String'];
   id: Scalars['ID'];
-  images: Array<Scalars['String']>;
+  images: Array<Images>;
+  price: Scalars['Int'];
   size: Scalars['String'];
+  variationName: Scalars['String'];
 };
 
-export type ProductVariationField = {
-  __typename?: 'ProductVariationField';
-  label: Scalars['String'];
-  variations: Array<Maybe<ProductVariationOption>>;
-};
-
-export type ProductVariationOption = {
-  __typename?: 'ProductVariationOption';
+export type ProductVariationSummary = {
+  __typename?: 'ProductVariationSummary';
   color: Scalars['String'];
   colorHex: Scalars['String'];
-  variationId: Scalars['ID'];
+  id: Scalars['ID'];
+  size: Scalars['String'];
+  variationName: Scalars['String'];
+};
+
+export type QuantityField = {
+  __typename?: 'QuantityField';
+  label: Scalars['String'];
+  max: Scalars['Int'];
+  min: Scalars['Int'];
 };
 
 export type Query = {
@@ -382,6 +362,18 @@ export type User = {
   updatedAt: Scalars['DateTime'];
 };
 
+export type ProductSummary = {
+  __typename?: 'productSummary';
+  categories: Array<Scalars['String']>;
+  description: Scalars['String'];
+  id: Scalars['String'];
+  name: Scalars['String'];
+  productType: Scalars['String'];
+  rating?: Maybe<Scalars['Float']>;
+  searchTags: Array<Scalars['String']>;
+  variations: Array<ProductVariationSummary>;
+};
+
 export type LoginPageUiQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -392,7 +384,7 @@ export type ProductPageUiQueryVariables = Exact<{
 }>;
 
 
-export type ProductPageUiQuery = { __typename?: 'Query', productPageUi: { __typename: 'NotFoundError', message: string } | { __typename: 'ProductPageUi', productGallery: { __typename?: 'ProductGallery', gallery: Array<{ __typename?: 'ProductGalleryCollection', variationId: string, images: Array<string | null> } | null> }, productHeader: { __typename?: 'ProductHeader', title: string, subtitle: string }, productInfo: { __typename?: 'ProductInfo', productDescription?: { __typename?: 'ProductDescription', label: string, description: string } | null }, productForm: { __typename?: 'ProductForm', productVariationField: { __typename?: 'ProductVariationField', label: string, variations: Array<{ __typename?: 'ProductVariationOption', variationId: string, color: string, colorHex: string } | null> }, productQuantityField: { __typename?: 'ProductQuantityField', label: string, min?: number | null, max?: number | null }, productAddToCartBtn: { __typename?: 'SubmitButton', label?: string | null } }, productPrice: { __typename?: 'ProductPrice', price: number } } };
+export type ProductPageUiQuery = { __typename?: 'Query', productPageUi: { __typename: 'NotFoundError', message: string } | { __typename: 'ProductPageUi', productGallery?: { __typename?: 'ProductGallery', images: Array<{ __typename?: 'Images', id: string, alt: string, url: string, height: number, width: number }> } | null, productHeader?: { __typename?: 'ProductHeader', title: string, variationName: string, size: string, price: number } | null, productInfo?: { __typename?: 'ProductInfo', description: string, variations: Array<{ __typename?: 'ProductVariationSummary', id: string, variationName: string, color: string, colorHex: string, size: string }> } | null, productForm?: { __typename?: 'ProductForm', quantityField: { __typename?: 'QuantityField', label: string, min: number, max: number }, submit: { __typename?: 'SubmitButton', label?: string | null } } | null } };
 
 export type SignupPageUiQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -415,7 +407,7 @@ export type SignupMutation = { __typename?: 'Mutation', signup?: { __typename?: 
 
 
 export const LoginPageUiDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"loginPageUi"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"loginPageUi"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"header"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}}]}},{"kind":"Field","name":{"kind":"Name","value":"form"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"email"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"placeholder"}}]}},{"kind":"Field","name":{"kind":"Name","value":"password"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"placeholder"}}]}},{"kind":"Field","name":{"kind":"Name","value":"submit"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"signupLink"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"linkLabel"}},{"kind":"Field","name":{"kind":"Name","value":"link"}}]}},{"kind":"Field","name":{"kind":"Name","value":"forgotPasswordLink"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"link"}}]}}]}}]}}]} as unknown as DocumentNode<LoginPageUiQuery, LoginPageUiQueryVariables>;
-export const ProductPageUiDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"productPageUi"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ProductPageUiInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"productPageUi"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"ProductPageUi"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"productGallery"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"gallery"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"variationId"}},{"kind":"Field","name":{"kind":"Name","value":"images"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"productHeader"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"subtitle"}}]}},{"kind":"Field","name":{"kind":"Name","value":"productInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"productDescription"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"description"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"productForm"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"productVariationField"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"variations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"variationId"}},{"kind":"Field","name":{"kind":"Name","value":"color"}},{"kind":"Field","name":{"kind":"Name","value":"colorHex"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"productQuantityField"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"min"}},{"kind":"Field","name":{"kind":"Name","value":"max"}}]}},{"kind":"Field","name":{"kind":"Name","value":"productAddToCartBtn"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"productPrice"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"price"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"NotFoundError"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"message"}}]}}]}}]}}]} as unknown as DocumentNode<ProductPageUiQuery, ProductPageUiQueryVariables>;
+export const ProductPageUiDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"productPageUi"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ProductPageUiInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"productPageUi"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"ProductPageUi"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"productGallery"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"images"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"alt"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"height"}},{"kind":"Field","name":{"kind":"Name","value":"width"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"productHeader"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"variationName"}},{"kind":"Field","name":{"kind":"Name","value":"size"}},{"kind":"Field","name":{"kind":"Name","value":"price"}}]}},{"kind":"Field","name":{"kind":"Name","value":"productInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"variations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"variationName"}},{"kind":"Field","name":{"kind":"Name","value":"color"}},{"kind":"Field","name":{"kind":"Name","value":"colorHex"}},{"kind":"Field","name":{"kind":"Name","value":"size"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"productForm"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"quantityField"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"min"}},{"kind":"Field","name":{"kind":"Name","value":"max"}}]}},{"kind":"Field","name":{"kind":"Name","value":"submit"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}}]}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"NotFoundError"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"message"}}]}}]}}]}}]} as unknown as DocumentNode<ProductPageUiQuery, ProductPageUiQueryVariables>;
 export const SignupPageUiDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"signupPageUI"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"signupPageUi"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"header"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}}]}},{"kind":"Field","name":{"kind":"Name","value":"form"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"email"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"placeholder"}}]}},{"kind":"Field","name":{"kind":"Name","value":"password"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"placeholder"}}]}},{"kind":"Field","name":{"kind":"Name","value":"firstname"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"placeholder"}}]}},{"kind":"Field","name":{"kind":"Name","value":"lastname"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"placeholder"}}]}},{"kind":"Field","name":{"kind":"Name","value":"submit"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"loginLink"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}},{"kind":"Field","name":{"kind":"Name","value":"linkLabel"}},{"kind":"Field","name":{"kind":"Name","value":"link"}}]}}]}}]}}]} as unknown as DocumentNode<SignupPageUiQuery, SignupPageUiQueryVariables>;
 export const LoginDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"login"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"LoginInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"login"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"User"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"firstname"}},{"kind":"Field","name":{"kind":"Name","value":"lastname"}},{"kind":"Field","name":{"kind":"Name","value":"profileImg"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"InvalidInputError"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"message"}},{"kind":"Field","name":{"kind":"Name","value":"invalidFields"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"field"}},{"kind":"Field","name":{"kind":"Name","value":"message"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"InvalidCredentialsError"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"message"}}]}}]}}]}}]} as unknown as DocumentNode<LoginQuery, LoginQueryVariables>;
 export const SignupDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"signup"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SignupInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"signup"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"User"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"firstname"}},{"kind":"Field","name":{"kind":"Name","value":"lastname"}},{"kind":"Field","name":{"kind":"Name","value":"profileImg"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"InvalidInputError"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"message"}},{"kind":"Field","name":{"kind":"Name","value":"invalidFields"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"field"}},{"kind":"Field","name":{"kind":"Name","value":"message"}}]}}]}}]}}]}}]} as unknown as DocumentNode<SignupMutation, SignupMutationVariables>;

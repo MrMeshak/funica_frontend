@@ -8,7 +8,7 @@ interface IGralleryProps {
 
 export default function Gallery({ uiData }: IGralleryProps) {
   const gallery = uiData.productGallery.gallery;
-  const image = gallery[0]?.images[0];
+  const images = gallery[0]?.images || [];
 
-  return <div className="relative">{image && <Image src={image} alt="product" width={300} height={300} />}</div>;
+  return <div className=" flex items-center justify-center bg-black"></div>;
 }
