@@ -7,8 +7,5 @@ interface IGralleryProps {
 }
 
 export default function Gallery({ uiData }: IGralleryProps) {
-  const gallery = uiData.productGallery.gallery;
-  const images = gallery[0]?.images || [];
-
-  return <div className=" flex items-center justify-center bg-black"></div>;
+  return <div></div>;
 }
