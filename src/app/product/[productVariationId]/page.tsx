@@ -1,7 +1,9 @@
 import { getApolloClient } from '@/apollo';
-import Gallery from '@/components/product/gallery';
 import { gql } from '@/graphql/__generated__/gql';
+import { Gallery } from '@/components/product/gallery';
+import { ProductHeader } from '@/components/product/header';
 import { ProductPageUiQuery } from '@/graphql/__generated__/graphql';
+import { ProductInfo } from '@/components/product/info';
 
 const productPageUiQuery = gql(/* GraphQL */ `
   query productPageUi($input: ProductPageUiInput!) {
@@ -27,7 +29,9 @@ const productPageUiQuery = gql(/* GraphQL */ `
         }
 
         productInfo {
+          descriptionTitle
           description
+          variationTitle
           variations {
             id
             variationName
@@ -82,8 +86,9 @@ export default async function ProductPage({ params }: IProductPageProps) {
 
   return (
     <div>
-      <h1>Product Page</h1>
-      <p>{uiData.productHeader?.title}</p>
+      <Gallery uiData={uiData} />
+      <ProductHeader uiData={uiData} />
+      <ProductInfo uiData={uiData} productVariationId={productVariationId} />
     </div>
   );
 }
